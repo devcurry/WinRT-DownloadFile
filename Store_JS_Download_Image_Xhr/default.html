@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Store_JS_Download_Image_Xhr</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <!-- Store_JS_Download_Image_Xhr references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+    <script type="text/javascript">
+        WinJS.UI.processAll().then(function () {
+            document.getElementById('btngetfile').addEventListener('click', downloadFile, false);
+        });
+        function downloadFile()
+        {
+            var url= document.getElementById('txturl').value; 
+            WinJS.xhr({ url: url, responseType: "blob" })
+            .done(function (r) {
+                //Create  a URL for the specieid object received frome the request. Here it is 'blob' 
+                var fileURL = URL.createObjectURL(r.response);
+                //CReate an Image Tag <img> under the Div tag
+                var image = dvcontainer.appendChild(document.createElement("img"));
+                //Set the 'src' property of the Image along with height and width
+                image.src = fileURL;
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <p>Download File using WInJS.xhr</p>
+
+    <table style="width: 100%;border:double">
+        <tr>
+            Enter Url Here
+            <td>
+                <input id="txturl" type="text"  style="width:800px"/>
+            </td>
+            <td>
+                <input id="btngetfile" type="button" value="Download" />
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <div id="dvcontainer">
+                  
+                </div>
+            </td>
+             
+        </tr>
+    </table>
+
+</body>
+</html>
